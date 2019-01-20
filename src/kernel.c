@@ -24,7 +24,7 @@ extern void kernelMain (void* multiboot, uint32_t magic)
     vga_clear_screen();
 
     printf("Welcome to Hummingbird OS!\n");
-    printf("That's all folks!\n");
+    printf("That's all folks %u\n", 464367618);
 
     while(1);
 }

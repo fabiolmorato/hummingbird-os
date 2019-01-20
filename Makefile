@@ -1,4 +1,4 @@
-GCCPARAMS = -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore -O2
+GCCPARAMS = -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore -fno-stack-protector -O2
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 

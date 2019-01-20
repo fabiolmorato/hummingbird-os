@@ -43,7 +43,7 @@ void vga_clear_line (uint32_t line)
 }
 
 /* This function exists for semantics purpose. */
-void vga_clear_screen (void)
+extern void vga_clear_screen (void)
 {
     vga_init();
 }

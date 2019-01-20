@@ -20,6 +20,7 @@ __line_t;
 extern void vga_init (void);
 void vga_clear_line (uint32_t);
 extern void vga_add_text (char*);
+extern void vga_clear_screen (void);
 void vga_update_screen (void);
 
 #endif
