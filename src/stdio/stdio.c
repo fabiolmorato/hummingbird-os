@@ -4,28 +4,6 @@
 
 #define BUFFER_SIZE 32
 
-/* This functions counts placeholders in an unformatted string. */
-uint32_t __count_placeholders (uint8_t* text)
-{
-    uint32_t placeholderCount = 0;
-    for (uint32_t i = 0; text[i] != '\0'; i++)
-    {
-        if (text[i] == '%' && text[i + 1] != '%')
-        {
-            if (i > 0 && text[i - 1] != '\\')
-            {
-                placeholderCount++;
-            }
-            else
-            {
-                placeholderCount++;
-            }
-        }
-    }
-
-    return placeholderCount;
-}
-
 /* This function clears a string writing null characters all over it. */
 void __clear_string (uint8_t* str, uint32_t size)
 {
@@ -71,18 +49,8 @@ extern void printf (uint8_t* text, ...)
     va_list args;
     uint8_t buffer[BUFFER_SIZE];
 
-    // couting the amount of placeholders to init va_list
-    uint32_t placeholderCount = __count_placeholders(text);
-
-    if (!placeholderCount) // no need to change anything in this string so far
-    {
-        // formatting other than placeholder will be done later
-        vga_add_text(text);
-        return;
-    }
-
     // starting argument list once counted
-    va_start(args, placeholderCount);
+    va_start(args, text);
 
     uint32_t bufferPos = 0;
     __clear_string(buffer, BUFFER_SIZE);
