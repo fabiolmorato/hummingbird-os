@@ -9,7 +9,7 @@ extern void kernelMain (void* multiboot, uint32_t magic)
 
     printf("Welcome to Hummingbird OS!\n");
     printf("\nSo far this system can print formatted strings and deals with screen size. As you can see, it correctly treats horizontal boundary.\n");
-    printf("\nThe printing system is uncomplete. So far you can print:\n\n");
+    printf("\nThe printing system is incomplete. So far you can print:\n\n");
     printf("\t- New lines and tabulations\n");
     printf("\t- Unsigned integers such as %u\n", 3846576);
     printf("\t- Hexadecimal values like %h\n", 0x123456789ABCDEF);
