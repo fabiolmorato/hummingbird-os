@@ -2,7 +2,7 @@ GCCPARAMS = -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore 
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = out/loader.o out/kernel.o out/stdio.o out/vga.o
+objects = out/loader.o out/kernel.o out/stdio.o out/vga.o out/utils.o
 
 kernel: src/kernel.c
 	gcc $(GCCPARAMS) -o out/$@.o -c $<
@@ -11,6 +11,10 @@ vga: src/vga/vga.c src/vga/vga.h
 	gcc $(GCCPARAMS) -o out/$@.o -c $<
 
 stdio: src/stdio/stdio.c src/stdio/stdio.h
+	gcc $(GCCPARAMS) -o out/$@.o -c $<
+
+
+utils: src/utils/utils.c src/utils/utils.h
 	gcc $(GCCPARAMS) -o out/$@.o -c $<
 
 loader: src/loader.s
@@ -38,6 +42,7 @@ all:
 	make kernel
 	make stdio
 	make vga
+	make utils
 	make loader
 	make hummingbird
 	make iso

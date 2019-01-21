@@ -42,6 +42,39 @@ void __print_unsigned_integer (uint32_t value)
     vga_add_text(converted);
 }
 
+void __print_hex (uint64_t value)
+{
+    vga_add_text("0x");
+    uint8_t* bytes = (uint8_t*) &value; // dividing 8 bytes one by one
+    bool firstNonZeroNumber = false;
+    uint8_t buffer[BUFFER_SIZE];
+    uint8_t bytePos = 0;
+
+    for (int8_t i = sizeof(uint64_t) - 1; i >= 0; i--)
+    {
+        uint8_t firstNibble = (bytes[i] & 0xF0) >> 4;
+        uint8_t lastNibble = bytes[i] & 0x0F;
+
+        uint8_t byte = firstNibble <= 0x9 ? '0' + firstNibble : 'A' + firstNibble - 10;
+        if (byte != '0' || firstNonZeroNumber)
+        {
+            buffer[bytePos++] = byte;
+            firstNonZeroNumber = true;
+        }
+
+        byte = lastNibble <= 0X9 ? '0' + lastNibble : 'A' + lastNibble - 10;
+        if (byte != '0' || firstNonZeroNumber) {
+            buffer[bytePos++] = byte;
+            firstNonZeroNumber = true;
+        }
+    }
+
+    if (!firstNonZeroNumber) buffer[bytePos++] = '0';
+
+    buffer[bytePos] = '\0';
+    vga_add_text(buffer);
+}
+
 /* Prints a formatted string into the screen. */
 extern void printf (uint8_t* text, ...)
 {
@@ -85,6 +118,10 @@ extern void printf (uint8_t* text, ...)
                     break;
                 case 'u':
                     __print_unsigned_integer(va_arg(args, int));
+                    i++;
+                    break;
+                case 'h':
+                    __print_hex(va_arg(args, long long int));
                     i++;
                     break;
             }

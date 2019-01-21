@@ -5,6 +5,8 @@
 #include "vga.h"
 #include "../types.h"
 
+#define TAB_SIZE 4
+
 __line_t   vga_lines[VGA_HEIGHT]; // lines on the screen
 __line_t*  __vga_linesRef[VGA_HEIGHT]; // an array that holds the address of all lines, ordered
 // initially every line is ordered 0,1,2,...VGA_HEIGHT-1
@@ -74,6 +76,11 @@ void vga_add_char (char c)
     {
         vga_x = 0;
         vga_y++;
+        return;
+    }
+    else if (c == '\t')
+    {
+        vga_x += 4 - (vga_x % 4);
         return;
     }
 
