@@ -93,7 +93,7 @@ void vga_add_char (char c)
 
     if (vga_y >= VGA_HEIGHT)
     {
-        vga_shift_back_lines(1);
+        vga_shift_back_lines(vga_y - (VGA_HEIGHT - 1)); // if vga_y == VGA_HEIGHT + n it means there were n \n printed, so shift n lines
         vga_y = VGA_HEIGHT - 1;
     }
 
